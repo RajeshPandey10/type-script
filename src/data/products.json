@@ -1,0 +1,142 @@
+[
+  {
+    "SN": 1,
+    "Name": "Wireless Mouse",
+    "Brand": "Logitech",
+    "Category": "Electronics",
+    "Price": 19.99
+  },
+  {
+    "SN": 2,
+    "Name": "Bluetooth Headphones",
+    "Brand": "Sony",
+    "Category": "Electronics",
+    "Price": 59.99
+  },
+  {
+    "SN": 3,
+    "Name": "Running Shoes",
+    "Brand": "Nike",
+    "Category": "Footwear",
+    "Price": 89.99
+  },
+  {
+    "SN": 4,
+    "Name": "Smartphone",
+    "Brand": "Samsung",
+    "Category": "Electronics",
+    "Price": 499.99
+  },
+  {
+    "SN": 5,
+    "Name": "Backpack",
+    "Brand": "Wildcraft",
+    "Category": "Accessories",
+    "Price": 39.99
+  },
+  {
+    "SN": 6,
+    "Name": "Water Bottle",
+    "Brand": "Milton",
+    "Category": "Home",
+    "Price": 9.99
+  },
+  {
+    "SN": 7,
+    "Name": "Laptop",
+    "Brand": "Apple",
+    "Category": "Electronics",
+    "Price": 1299.99
+  },
+  {
+    "SN": 8,
+    "Name": "Desk Lamp",
+    "Brand": "Philips",
+    "Category": "Home",
+    "Price": 24.99
+  },
+  {
+    "SN": 9,
+    "Name": "T-shirt",
+    "Brand": "Adidas",
+    "Category": "Apparel",
+    "Price": 14.99
+  },
+  {
+    "SN": 10,
+    "Name": "Fitness Tracker",
+    "Brand": "Fitbit",
+    "Category": "Electronics",
+    "Price": 99.99
+  },
+  {
+    "SN": 11,
+    "Name": "Coffee Maker",
+    "Brand": "Nescafe",
+    "Category": "Home",
+    "Price": 49.99
+  },
+  {
+    "SN": 12,
+    "Name": "Sunglasses",
+    "Brand": "Ray-Ban",
+    "Category": "Accessories",
+    "Price": 79.99
+  },
+  {
+    "SN": 13,
+    "Name": "Book",
+    "Brand": "Penguin",
+    "Category": "Books",
+    "Price": 12.99
+  },
+  {
+    "SN": 14,
+    "Name": "Tablet",
+    "Brand": "Lenovo",
+    "Category": "Electronics",
+    "Price": 199.99
+  },
+  {
+    "SN": 15,
+    "Name": "Jeans",
+    "Brand": "Levi's",
+    "Category": "Apparel",
+    "Price": 39.99
+  },
+  {
+    "SN": 16,
+    "Name": "Sneakers",
+    "Brand": "Puma",
+    "Category": "Footwear",
+    "Price": 59.99
+  },
+  {
+    "SN": 17,
+    "Name": "Smartwatch",
+    "Brand": "Apple",
+    "Category": "Electronics",
+    "Price": 299.99
+  },
+  {
+    "SN": 18,
+    "Name": "Gaming Keyboard",
+    "Brand": "Corsair",
+    "Category": "Electronics",
+    "Price": 79.99
+  },
+  {
+    "SN": 19,
+    "Name": "Jacket",
+    "Brand": "North Face",
+    "Category": "Apparel",
+    "Price": 99.99
+  },
+  {
+    "SN": 20,
+    "Name": "Bluetooth Speaker",
+    "Brand": "JBL",
+    "Category": "Electronics",
+    "Price": 49.99
+  }
+]

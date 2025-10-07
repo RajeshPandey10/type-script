@@ -15,10 +15,10 @@ import type { heroType } from "../types/heroType";
 
 const Hero = ({ title, subTitle }:heroType) => {
   return (
-    <>
+    <section className="text-center">
       <h1>{title}</h1>
       <p>{subTitle}</p>
-    </>
+    </section>
   );
 };
 
