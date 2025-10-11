@@ -2,23 +2,38 @@ const navMenu = [
 
     {
         label:"Home",
-        route:"/"
+        route:"/",
+        auth:true
     },
     {
         label:"About",
-        route:"/about"
+        route:"/about",
+        auth:true
     },
     {
         label:"Products",
-        route:"/products"
+        route:"/products",
+        auth:true
     },
     {
         label:"Contact",
-        route:"/contact"
+        route:"/contact",
+        auth:true
     },
     {
         label:"New Arrivals",
-        route:"/new-arrivals"
+        route:"/new-arrivals",
+        auth:true
     },
+    {
+        label:"Login",
+        route:"/login",
+        auth:false
+    },
+    {
+        label:"Register",
+        route:"/register",
+        auth:false
+    }
 ]
 export default navMenu

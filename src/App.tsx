@@ -3,7 +3,7 @@ import Routes from "./Routes/Routes";
 import LoadingSpinner from "./components/LoadingSpinner";
 
 const App = () => {
-  const user =true
+  const user =false
   return (
     <>
       <Suspense fallback={<LoadingSpinner />}>
