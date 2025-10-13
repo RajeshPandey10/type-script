@@ -3,7 +3,8 @@ import navMenu from "../constants/navMenu";
 import { NavLink } from "react-router-dom";
 
 import { useState } from "react";
-const Navbar = ({user}:{user:boolean}) => {
+import { logout } from "../api/auth";
+const Navbar = ({ user }: { user: boolean }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const classForNavLink = ({ isActive }: { isActive: boolean }) =>
     isActive
@@ -59,16 +60,26 @@ const Navbar = ({user}:{user:boolean}) => {
             }`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="font-medium flex items-center sticky flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {navMenu
-              .filter(({auth})=>user?auth:!auth)
-              .map(({ label, route }: any) => (
-                <li key={label}>
-                  <NavLink to={route} className={classForNavLink}>
-                    {label}
-                  </NavLink>
+                .filter(({ auth }) => (user ? auth : !auth))
+                .map(({ label, route }: any) => (
+                  <li key={label}>
+                    <NavLink to={route} className={classForNavLink}>
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              {user ? (
+                <li>
+                  <button
+                    onClick={logout}
+                    className="bg-red-700 text-white py-2 px-5 rounded-xl cursor-pointer"
+                  >
+                    Logout
+                  </button>
                 </li>
-              ))}
+              ) : null}
             </ul>
           </div>
         </div>

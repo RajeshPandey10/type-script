@@ -1,42 +1,44 @@
 import { useForm } from "react-hook-form";
-import type { LoginFormType } from "../types/LoginFormType";
-import { EMAIL_REGEX } from "../constants/regex";
-import { Link } from "react-router-dom";
-import { login,Register } from "../api/auth";
 
-const AuthForm = ({ type }: any) => {
-  const onSubmit = async(data: LoginFormType) => {
-    if(type==="Login"){
-        const response=await login(data)
-         console.log(response)
-    }
-    else {const response =await Register(data)
-         console.log(response)
-    }
+import { EMAIL_REGEX } from "../../constants/regex";
+import { Link } from "react-router-dom";
+import { login } from "../../api/auth";
+import type { authFormType } from "../../types/authFormType";
+import { useState } from "react";
+import Loader from "../Loader";
+
+const LoginForm = () => {
+  const [loading,setLoading] =useState(false)
+ 
+  const onSubmit = async (data: authFormType) => {
+    try {
+      setLoading(true)
+      await login(data);
    
+    } catch (error:any) {
+      setError("root", { message: error.response.data });
+      
+    }
+    finally{
+         setLoading(false)
+    }
   };
   // const form =useForm();
   // const {register} =form
-  const { register, handleSubmit, formState } = useForm<LoginFormType>({
-    mode: "all",
-  });
+  const { register, handleSubmit, formState, setError } = useForm<authFormType>(
+    {
+      mode: "all",
+    }
+  );
   const { errors } = formState;
   //   const { name, ref, onChange, onBlur } = register("email");
   return (
     <div className="min-h-[80vh] overflow-hidden  flex items-center justify-center px-4">
       <div className="bg-gray-100 shadow-xl rounded-2xl w-full max-w-md p-4 sm:p-8">
-        {type === "Login" ? (
-          <h2 className="text-2xl font-extrabold text-center text-gray-800 mb-6">
-            Login
-          </h2>
-        ) : (
-          <h2 className="text-2xl font-extrabold text-center text-gray-800 mb-6">
-            Create an Account
-          </h2>
-        )}
+        <h2 className="text-2xl font-extrabold text-center text-gray-800 mb-6">
+          Login
+        </h2>
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-       
-
           {/* Email */}
           <div>
             <label
@@ -95,67 +97,39 @@ const AuthForm = ({ type }: any) => {
             </p>
           </div>
 
-          {/* Password */}
-          {type === "Register" && (
-            <>
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                 Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  {...register("confirmPassword", {
-                    required: { value:true, message: "confirmPassword is Required" },
-                  })}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-                <p className="text-sm text-red-600 mt-2" role="alert">
-                  {typeof errors.name?.message === "string"
-                    ? errors.name?.message
-                    : null}
-                </p>
-              </div>
-            </>
-          )}
+          {/* no confirm password on login form */}
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all duration-200"
+            className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all duration-200"
           >
-            {type || "Register"}
+            {
+              loading?
+              <Loader/>: "Login"
+            }
           </button>
-
+          <div>
+            <p className="text-sm text-red-600 mt-2" role="alert">
+              {typeof errors.root?.message === "string"
+                ? errors.root?.message
+                : null}
+            </p>
+          </div>
           {/* Redirect */}
-          {type === "Register" ? (
-            <p className="text-center text-sm text-gray-600 mt-4">
-              Already have an account?{" "}
-              <Link
-                to="/login"
-                className="text-blue-600 font-medium hover:underline"
-              >
-                Login
-              </Link>
-            </p>
-          ) : (
-            <p className="text-center text-sm text-gray-600 mt-4">
-              Don't have an account?{" "}
-              <Link
-                to="/register"
-                className="text-blue-600 font-medium hover:underline"
-              >
-                Register
-              </Link>
-            </p>
-          )}
+          <p className="text-center text-sm text-gray-600 mt-4">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-blue-600 font-medium hover:underline"
+            >
+              Register
+            </Link>
+          </p>
         </form>
       </div>
     </div>
   );
 };
 
-export default AuthForm;
+export default LoginForm;
