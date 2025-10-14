@@ -5,7 +5,7 @@ const UnAuthLayout=({user}:{user:boolean}) => {
   return (
     <>
     {
-        user? <Navigate to="/login"/> :<Outlet/> 
+        user? <Navigate to="/"/> :<Outlet/> 
     }
     </>
   )

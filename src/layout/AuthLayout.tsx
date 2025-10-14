@@ -5,7 +5,7 @@ const AuthLayout = ({user}:{user:boolean}) => {
   return (
     <>
     {
-        user? <Outlet/> : <Navigate to="/"/>
+        user? <Outlet/> : <Navigate to="/login"/>
     }
     </>
   )

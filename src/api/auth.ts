@@ -1,9 +1,9 @@
 import axios, { type AxiosResponse } from "axios";
 import config from "../config/config";
-import type { authFormType } from "../types/authFormType";
+import type { loginFormType, registerFormType } from "../types/authFormType";
 const AUTH_TOKEN = "authToken" //this is the professional way to write the more than two constants in js to avoid mistakes
 
-export const login = async (data: authFormType): Promise<AxiosResponse> => {
+export const login = async (data: loginFormType): Promise<AxiosResponse> => {
 
     const response = await axios.post(`${config.apiUrl}/api/auth/login`, data)
     if (response.data.token) {
@@ -27,7 +27,7 @@ export const logout = () => {
 
 
 
-export const Register = async (data: authFormType) => {
+export const Register = async (data: registerFormType) => {
     const response = await axios.post(`${config.apiUrl}/api/auth/register`, data)
     return response
 }

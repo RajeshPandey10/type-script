@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { EMAIL_REGEX } from "../../constants/regex";
 import { Link } from "react-router-dom";
 import { Register } from "../../api/auth";
-import type { authFormType } from "../../types/authFormType";
+import type { registerFormType } from "../../types/authFormType";
 import { useState } from "react";
 import Loader from "../Loader";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const onSubmit = async (data: authFormType) => {
+  const onSubmit = async (data: registerFormType) => {
     try {
       setLoading(true);
       await Register(data);
@@ -23,7 +23,7 @@ const RegisterForm = () => {
   // const form =useForm();
   // const {register} =form
   const { register, handleSubmit, formState, watch, setError } =
-    useForm<authFormType>({
+    useForm<registerFormType>({
       mode: "all",
     });
   const password = watch("password");

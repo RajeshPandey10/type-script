@@ -2,34 +2,40 @@ import { useForm } from "react-hook-form";
 
 import { EMAIL_REGEX } from "../../constants/regex";
 import { Link } from "react-router-dom";
-import { login } from "../../api/auth";
-import type { authFormType } from "../../types/authFormType";
-import { useState } from "react";
+// import { login } from "../../api/auth";
+import type { loginFormType } from "../../types/authFormType";
+// import { useState } from "react";
 import Loader from "../Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/auth/authActions";
+import type { AppDispatch, RootState } from "../../redux/store";
 
 const LoginForm = () => {
-  const [loading,setLoading] =useState(false)
- 
-  const onSubmit = async (data: authFormType) => {
-    try {
-      setLoading(true)
-      await login(data);
-   
-    } catch (error:any) {
-      setError("root", { message: error.response.data });
-      
-    }
-    finally{
-         setLoading(false)
-    }
+  // const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const {loading,error} =useSelector((state:RootState)=>state.auth)
+  const onSubmit = async (data: loginFormType) => {
+    // try {
+    //   setLoading(true)
+    //   await login(data);
+
+    // } catch (error:any) {
+    //   setError("root", { message: error.response.data });
+
+    // }
+    // finally{
+    //      setLoading(false)
+    // }
+
+    //we have to useDispacth to use the redux action ..we cant call directly
+    dispatch(loginUser(data));
   };
   // const form =useForm();
   // const {register} =form
-  const { register, handleSubmit, formState, setError } = useForm<authFormType>(
-    {
+  const { register, handleSubmit, formState,  } = //setError-> for error when not using state management
+    useForm<loginFormType>({
       mode: "all",
-    }
-  );
+    });
   const { errors } = formState;
   //   const { name, ref, onChange, onBlur } = register("email");
   return (
@@ -104,16 +110,11 @@ const LoginForm = () => {
             type="submit"
             className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all duration-200"
           >
-            {
-              loading?
-              <Loader/>: "Login"
-            }
+            {loading ? <Loader /> : "Login"}
           </button>
           <div>
             <p className="text-sm text-red-600 mt-2" role="alert">
-              {typeof errors.root?.message === "string"
-                ? errors.root?.message
-                : null}
+              {error}
             </p>
           </div>
           {/* Redirect */}

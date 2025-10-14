@@ -1,10 +1,16 @@
 import Logo from "./Logo";
 import navMenu from "../constants/navMenu";
 import { NavLink } from "react-router-dom";
-
+// import { logout } from "../api/auth";
 import { useState } from "react";
-import { logout } from "../api/auth";
+
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/auth/authSlice";
 const Navbar = ({ user }: { user: boolean }) => {
+  const dispatch = useDispatch();
+  const logout =()=>{
+    dispatch(logoutUser())
+  }
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const classForNavLink = ({ isActive }: { isActive: boolean }) =>
     isActive
@@ -73,6 +79,7 @@ const Navbar = ({ user }: { user: boolean }) => {
               {user ? (
                 <li>
                   <button
+                    // onClick={logout}
                     onClick={logout}
                     className="bg-red-700 text-white py-2 px-5 rounded-xl cursor-pointer"
                   >
