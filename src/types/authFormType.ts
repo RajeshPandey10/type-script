@@ -5,10 +5,8 @@ export interface loginFormType {
 
 }
 
-export interface registerFormType {
+export type registerFormType = loginFormType & {
     name?: string,
-    email?: string,
-    password?: string,
     confirmPassword?: string
 }
 
