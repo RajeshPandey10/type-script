@@ -1,46 +1,58 @@
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { EMAIL_REGEX } from "../../constants/regex";
 import { Link } from "react-router-dom";
-import { Register } from "../../api/auth";
+
+// import { Register } from "../../api/auth";
 import type { registerFormType } from "../../types/authFormType";
-import { useState } from "react";
+// import { useState } from "react";
 import Loader from "../Loader";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { registerUser } from "../../redux/auth/authActions";
+import toast from "react-hot-toast";
+import { clearAuthStatus } from "../../redux/auth/authSlice";
 
 const RegisterForm = () => {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, success } = useSelector(
+    (state: RootState) => state.auth
+  );
   const onSubmit = async (data: registerFormType) => {
-    try {
-      setLoading(true);
-      await Register(data);
-      setSuccess(true);
-    } catch (error: any) {
-      setError("root", { message: error.response.data });
-    } finally {
-      setLoading(true);
-    }
+    // try {
+    //   setLoading(true);
+    //   await Register(data);
+    //   setSuccess(true);
+    // } catch (error: any) {
+    //   setError("root", { message: error.response.data });
+    // } finally {
+    //   setLoading(true);
+    // }
+    dispatch(registerUser(data));
   };
   // const form =useForm();
   // const {register} =form
-  const { register, handleSubmit, formState, watch, setError } =
+  const {
+    register,
+    handleSubmit,
+    formState,
+    watch,
+  } = //setError for setting error when not using state management
     useForm<registerFormType>({
       mode: "all",
     });
   const password = watch("password");
   const { errors } = formState;
   //   const { name, ref, onChange, onBlur } = register("email");
-
-  if (success) {
-    return (
-      <div className="text-green-600 text-center">
-        Thank you for connecting with us. now you can{" "}
-        <Link to="/login" className="text-blue-400 cursor-pointer">
-          Login
-        </Link>{" "}
-        to continue
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (success) {
+      toast.success("Thank you for being our member");
+      // Clear success/error flags after showing toast to avoid stale state retriggering later
+      dispatch(clearAuthStatus());
+    }
+  }, [success]);
   return (
     <>
       <div className="min-h-[80vh] overflow-hidden  flex items-center justify-center px-4">
@@ -169,9 +181,7 @@ const RegisterForm = () => {
             </button>
             <div>
               <p className="text-sm text-red-600 mt-2" role="alert">
-                {typeof errors.root?.message === "string"
-                  ? errors.root?.message
-                  : null}
+                {error}
               </p>
             </div>
             {/* Redirect */}

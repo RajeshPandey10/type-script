@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser } from './authActions'
+import { loginUser, registerUser } from './authActions'
 import type { authReduxType } from '../../types/authReduxType';
 
 
 
-const initialState:authReduxType = {
+const initialState: authReduxType = {
     loading: false,
     error: null,
     user: null,
-    isAuth: false
+    isAuth: false,
+    success: false
 }
 
 export const authSlice = createSlice({
@@ -18,6 +19,12 @@ export const authSlice = createSlice({
         logoutUser: (state) => {
             state.user = null;
             state.isAuth = false
+            state.success = false
+            state.error = null
+        },
+        clearAuthStatus: (state) => {
+            state.success = false
+            state.error = null
         }
     },//reducers use only for the synchronous function..so we use another extrareducers for the asynchronous function
     extraReducers: (builder) => {
@@ -31,11 +38,25 @@ export const authSlice = createSlice({
         }).addCase(loginUser.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload as string //playload means the data from state or when you are doing action action.playod is the response..
+        }).addCase(registerUser.pending, (state) => {
+            state.loading = true
+            state.error = null
+            state.success = false
+        }).addCase(registerUser.fulfilled, (state, action) => {
+            state.loading = false,
+                state.user = action.payload,
+                state.isAuth = true
+            state.success = true
+        }).addCase(registerUser.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = action.payload as string
         });
     },
 })
 
 
 
-export const { logoutUser } = authSlice.actions
+export const { logoutUser, clearAuthStatus } = authSlice.actions
+
 export default authSlice.reducer

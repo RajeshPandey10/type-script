@@ -21,13 +21,13 @@ import LoadingSpinner from "./components/LoadingSpinner";
 // import { isAuth } from "./api/auth";
 import { useSelector } from "react-redux";
 import type { RootState } from "./redux/store";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
-  const isAuth = useSelector(
-    (state: RootState) => state.auth.isAuth
-  ); //if we want to call the state  then we have to use useSelector
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth); //if we want to call the state then we have to use useSelector
   return (
     <>
+      <Toaster />
       <Suspense fallback={<LoadingSpinner />}>
         <Routes user={isAuth} />
       </Suspense>

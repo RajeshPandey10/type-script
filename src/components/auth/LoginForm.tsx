@@ -27,7 +27,7 @@ const LoginForm = () => {
     //      setLoading(false)
     // }
 
-    //we have to useDispacth to use the redux action ..we cant call directly
+    //we have to useDispacth to use the redux action ..we cant call directly...to set use dipatch ..to get useSelect
     dispatch(loginUser(data));
   };
   // const form =useForm();
