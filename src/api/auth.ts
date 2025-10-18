@@ -5,10 +5,11 @@ import type { loginFormType, registerFormType } from "../types/authFormType";
 
 export const login = async (data: loginFormType): Promise<AxiosResponse> => {
 
-    const response = await axios.post(`${config.apiUrl}/api/auth/login`, data)
+    const response = await axios.post(`${config.apiUrl}/auth/login`, data)
     // if (response.data.token) {
     //     localStorage.setItem(AUTH_TOKEN, response.data.token)
     // }
+    console.log(response.data.token)
     return response
 
 
@@ -28,6 +29,6 @@ export const login = async (data: loginFormType): Promise<AxiosResponse> => {
 
 
 export const Register = async (data: registerFormType) => {
-    const response = await axios.post(`${config.apiUrl}/api/auth/register`, data)
+    const response = await axios.post(`${config.apiUrl}/auth/register`, data)
     return response
 }

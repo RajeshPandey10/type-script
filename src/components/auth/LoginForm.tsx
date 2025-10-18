@@ -103,7 +103,6 @@ const LoginForm = () => {
             </p>
           </div>
 
-          {/* no confirm password on login form */}
 
           {/* Submit Button */}
           <button
