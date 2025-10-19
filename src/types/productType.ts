@@ -1,9 +1,7 @@
-export interface productTypes{
-products:{
-    SN:number,
-    Name:string,
-    Brand:string,
-    Category:string,
-    Price:number
-}[]
+export interface productTypes {
+
+    name: string;
+    brand: string;
+    category: string;
+    price: number;
 }

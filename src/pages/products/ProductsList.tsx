@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import ProductsTable from "../../components/ProductsTable";
+import { useProductFetch } from "../../hooks/useProductFetch";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-import products from "../../data/products.json";
 const ProductsList = () => {
+  const { products,loading,error} = useProductFetch();
+  if(loading) return <div className="text-center mt-50"><LoadingSpinner/></div>
   return (
     <div className="">
       <div className="flex justify-between">
@@ -13,7 +16,7 @@ const ProductsList = () => {
           <Link to="/products/add">Add products +</Link>
         </div>
       </div>
-      <ProductsTable products={products} />
+     {error?<div className="text-center text-red-500 mt-10">{error}</div>: <ProductsTable products={products}/>}
     </div>
   );
 };
