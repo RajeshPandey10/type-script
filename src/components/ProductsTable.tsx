@@ -1,34 +1,67 @@
 import productsTableHead from "../constants/productsTableHead";
-import type { productTypes } from "../types/productType";
+import { useProductFetch } from "../hooks/useProductFetch";
+import { useSortData } from "../hooks/useSortData";
+import Loader from "./Loader";
+
 //never fetch data on components keep in mind you were going to do this mistake here so this is remainder for you --->keep it in mind rajesh sir
-const ProductsTable = ({ products }: { products: productTypes[] }) => {
+const ProductsTable = () => {
+  const { products, loading, error } = useProductFetch();
+  const { sortOrder, getLimitedData } = useSortData();
+  if (error) {
+    return <div className="text-center text-red-500 mt-10">{error}</div>;
+  }
   return (
     <div className="py-10 px-12 border border-gray-300 rounded-xl border-dashed my-8 mx-10">
       <table className="w-full text-left">
         <thead>
           <tr>
-            {productsTableHead.map((tableHead) => (
-              <th className="pb-3" key={tableHead}>
-                {tableHead}
+            {productsTableHead.map(({ key, label }, index) => (
+              <th
+                className="pb-3 cursor-pointer"
+                key={index}
+                onClick={() => sortOrder(key)}
+              >
+                {label}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
-          {products.map((product,index) => (
-            <tr
-              key={index}
-              className="border-b border-dashed last:border-b-0 border-gray-300"
-            >
-              <td className="py-3 text-left">{index+1}</td>
-              <td className="py-3 text-left">{product.name}</td>
-              <td className="py-3 text-left">{product.brand}</td>
-              <td className="py-3 text-left">{product.category}</td>
-              <td className="py-3 text-left">Rs.{product.price}</td>
-            </tr>
-          ))}
-        </tbody>
+        {loading ? (
+          <Loader />
+        ) : (
+          <tbody>
+            {products.map((product, index) => (
+              <tr
+                key={index}
+                className="border-b border-dashed last:border-b-0 border-gray-300"
+              >
+                <td className="py-3 text-left">{index + 1}</td>
+                <td className="py-3 text-left">{product.name}</td>
+                <td className="py-3 text-left">{product.brand}</td>
+                <td className="py-3 text-left">{product.category}</td>
+                <td className="py-3 text-left">Rs.{product.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
+
+      <div className="mt-10 text-right ">
+        <label htmlFor="limit" className="mr-4">
+          Limit:
+        </label>
+        <select
+          name="limit"
+          id="limit"
+          className="border  border-blue-600 p-2 rounded-md"
+          onChange={(e) => getLimitedData(e)}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
     </div>
   );
 };
