@@ -17,3 +17,7 @@ export type productState = {
     products: productTypes[];
     query:productQuery
 }
+
+export type FilterState = {
+  [key: string]: string;
+};

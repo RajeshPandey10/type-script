@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
-import ProductsTable from "../../components/ProductsTable";
-
-
+import ProductsTable from "../../components/products/ProductsTable";
 
 const ProductsList = () => {
-
   return (
     <div className="">
       <div className="flex justify-between">
@@ -15,9 +12,8 @@ const ProductsList = () => {
           <Link to="/products/add">Add products +</Link>
         </div>
       </div>
-     
-        <ProductsTable/>
-    
+
+      <ProductsTable />
     </div>
   );
 };

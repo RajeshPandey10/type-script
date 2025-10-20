@@ -5,20 +5,24 @@ const productsTableHead = [
     },
     {
         label: "Name",
-        key: "name"
+        key: "name",
+      
     },
     {
         label: "Brand",
-        key: "brand"
+        key: "brand",
+       
     },
     {
         label: "Category",
-        key: "category"
+        key: "category",
+       
     },
 
     {
         label: "Price",
-        key: "price"
+        key: "price",
+        
     }
 ]
 

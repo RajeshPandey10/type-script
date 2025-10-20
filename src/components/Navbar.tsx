@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/auth/authSlice";
-const Navbar = ({ user }: { user: boolean }) => {
+const Navbar = ({ user }: { user?: boolean }) => {
   const dispatch = useDispatch();
   const logout =()=>{
     dispatch(logoutUser())
