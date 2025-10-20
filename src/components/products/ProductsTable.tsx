@@ -1,7 +1,8 @@
 import productsTableHead from "../../constants/productsTableHead";
 import { useProductFetch } from "../../hooks/useProductFetch";
 import { useSortData } from "../../hooks/useSortData";
-import Loader from "../Loader";
+
+import LoadingSpinner from "../LoadingSpinner";
 import FilterData from "./FilterData";
 import Limits from "./Limits";
 
@@ -14,7 +15,7 @@ const ProductsTable = () => {
   }
   return (
     <div className="flex">
-      <FilterData/>
+      <FilterData />
       <div className="py-10 px-12 border border-gray-300 rounded-xl border-dashed my-8 mx-10 w-5/6">
         <table className="w-full text-left">
           <thead>
@@ -31,7 +32,16 @@ const ProductsTable = () => {
             </tr>
           </thead>
           {loading ? (
-            <Loader />
+            <tbody>
+              <tr>
+                <td
+                  colSpan={productsTableHead.length}
+                  className="py-6 text-center"
+                >
+                  <LoadingSpinner />
+                </td>
+              </tr>
+            </tbody>
           ) : (
             <tbody>
               {products.map((product, index) => (
