@@ -10,7 +10,9 @@ import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { registerUser } from "../../redux/auth/authActions";
-import toast from "react-hot-toast";
+
+
+import {toast, ToastContainer } from "react-toastify";
 import { clearAuthStatus } from "../../redux/auth/authSlice";
 
 const RegisterForm = () => {
@@ -46,13 +48,19 @@ const RegisterForm = () => {
   const password = watch("password");
   const { errors } = formState;
   //   const { name, ref, onChange, onBlur } = register("email");
-  useEffect(() => {
-    if (success) {
-      toast.success("Thank you for being our member");
-      // Clear success/error flags after showing toast to avoid stale state retriggering later
-      dispatch(clearAuthStatus());
-    }
-  }, [success]);
+  useEffect(()=>{
+     if(success){
+       toast.success("successfully added product",{
+         autoClose:1000,
+         onClose:()=>dispatch(clearAuthStatus())
+       })
+     }
+     if(error ) {toast.error(error,{
+       autoClose:1000,
+ 
+     })}
+ 
+   },[error,success,dispatch])
   return (
     <>
       <div className="min-h-[80vh] overflow-hidden  flex items-center justify-center px-4">
@@ -180,9 +188,7 @@ const RegisterForm = () => {
               {loading ? <Loader /> : "Register"}
             </button>
             <div>
-              <p className="text-sm text-red-600 mt-2" role="alert">
-                {error}
-              </p>
+             <ToastContainer/>
             </div>
             {/* Redirect */}
             <p className="text-center text-sm text-gray-600 mt-4">

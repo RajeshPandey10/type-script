@@ -10,6 +10,7 @@ const initialState: productState = {
     error: null,
     products: [],
     query: {},
+    success:false,
 }
 
 
@@ -23,6 +24,9 @@ export const productSlice = createSlice({
                 sort: action.payload as { [key: string]: 1 | -1 },
             };
         },
+        resetSuccess:(state)=>{
+            state.success=false
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAllProducts.pending, (state) => {
@@ -46,15 +50,17 @@ export const productSlice = createSlice({
             })
             .addCase(createProducts.fulfilled, (state) => {
                 state.loading = false
+                state.success=true
 
             })
             .addCase(createProducts.rejected, (state,action) => {
                 state.loading = false
                 state.error = action.payload as string
+               
 
             })
 
     }
 })
-export const { sort } = productSlice.actions
+export const { sort,resetSuccess } = productSlice.actions
 export default productSlice.reducer

@@ -3,7 +3,9 @@ import type { productFormType } from "../../types/productFormType";
 import { useDispatch, useSelector } from "react-redux";
 import type {AppDispatch,RootState } from "../../redux/store";
 import { createProducts } from "../../redux/products/productActions";
-
+import { useEffect } from "react";
+import {toast, ToastContainer} from "react-toastify"
+import { resetSuccess } from "../../redux/products/productSlice";
 const AddProductForm = () => {
   const {
     register,
@@ -15,12 +17,26 @@ const AddProductForm = () => {
       mode: "all",
     });
       const dispatch = useDispatch<AppDispatch>()
-      const {error} = useSelector((state:RootState)=>state.product)
+      const {error,success,loading} = useSelector((state:RootState)=>state.product)
     const addProduct = async(data:productFormType)=>{
       dispatch(createProducts(data))
       console.log(data)
     }
   const { errors } = formState;
+
+  useEffect(()=>{
+    if(success){
+      toast.success("successfully added product",{
+        autoClose:1000,
+        onClose:()=>dispatch(resetSuccess())
+      })
+    }
+    if(error ) {toast.error(error,{
+      autoClose:1000,
+
+    })}
+
+  },[error,success,dispatch])
 
   return (
     <div className="mt-10 flex justify-center">
@@ -122,12 +138,12 @@ const AddProductForm = () => {
             type="submit"
             className="w-full mt-6 bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all duration-200 text-center"
           >
-            Add Product
+         {loading?"creating...":"Add Product"}
           </button>
-          <p className="text-sm text-red-600 mt-5">{
-            error}</p>
+       
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

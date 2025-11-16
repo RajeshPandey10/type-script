@@ -15,7 +15,8 @@ export type productState = {
     loading: boolean;
     error: string | null;
     products: productTypes[];
-    query:productQuery
+    query:productQuery;
+    success:boolean
 }
 
 export type FilterState = {

@@ -4,6 +4,7 @@ import axios from "axios"
 const api = axios.create({
     baseURL: `${config.apiUrl}`,
     withCredentials: true,
+    timeout:10000
 })
 
 // Request interceptor to add Authorization header

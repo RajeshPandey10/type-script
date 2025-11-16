@@ -21,6 +21,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 // import { isAuth } from "./api/auth";
 import { useSelector } from "react-redux";
 import type { RootState } from "./redux/store";
+import "react-toastify/dist/ReactToastify.css"
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
