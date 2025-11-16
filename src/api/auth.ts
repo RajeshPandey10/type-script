@@ -1,14 +1,15 @@
-import axios, { type AxiosResponse } from "axios";
-import config from "../config/config";
+import { type AxiosResponse } from "axios";
+
 import type { loginFormType, registerFormType } from "../types/authFormType";
-// const AUTH_TOKEN = "authToken" //this is the professional way to write the more than two constants in js to avoid mistakes
+import api from "./interceptors";
+const AUTH_TOKEN = "authToken" //this is the professional way to write the more than two constants in js to avoid mistakes
 
 export const login = async (data: loginFormType): Promise<AxiosResponse> => {
 
-    const response = await axios.post(`${config.apiUrl}/auth/login`, data)
-    // if (response.data.token) {
-    //     localStorage.setItem(AUTH_TOKEN, response.data.token)
-    // }
+    const response = await api.post(`/auth/login`, data)
+    if (response.data.token) {
+        localStorage.setItem(AUTH_TOKEN, response.data.token)
+    }
     console.log(response.data.token)
     return response
 
@@ -29,6 +30,6 @@ export const login = async (data: loginFormType): Promise<AxiosResponse> => {
 
 
 export const Register = async (data: registerFormType) => {
-    const response = await axios.post(`${config.apiUrl}/auth/register`, data)
+    const response = await api.post(`/auth/register`, data)
     return response
 }

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { productState } from "../../types/productRedux";
-import { getAllProducts } from "./productActions";
+import { createProducts, getAllProducts } from "./productActions";
 
 
 
@@ -25,19 +25,33 @@ export const productSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllProducts.pending, (state, action) => {
+        builder.addCase(getAllProducts.pending, (state) => {
             state.loading = true
             state.error = null
-            state.query = action.meta.arg ?? state.query
+
         })
             .addCase(getAllProducts.fulfilled, (state, action) => {
                 state.loading = false;
                 state.products = action.payload
-                state.query = action.meta.arg ?? state.query
+
             })
             .addCase(getAllProducts.rejected, (state, action) => {
                 state.loading = false,
                     state.error = action.payload as string
+            })
+            .addCase(createProducts.pending, (state) => {
+                state.loading = true
+                state.error = null
+
+            })
+            .addCase(createProducts.fulfilled, (state) => {
+                state.loading = false
+
+            })
+            .addCase(createProducts.rejected, (state,action) => {
+                state.loading = false
+                state.error = action.payload as string
+
             })
 
     }
